@@ -1,0 +1,130 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.4
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.10.18
+    start_time: 1755657389.870653
+    t:
+      1:
+      - 1
+      - 55
+      3:
+      - 16
+      - 23
+      4: 3.10.18
+      5: 0.13.4
+      8:
+      - 5
+algorithms:
+  desc: null
+  value:
+    Follower:
+      name: Follower
+      num_process: 4
+      parallel_backend: balanced_dask
+    FollowerLite:
+      name: FollowerLite
+      num_process: 4
+      num_threads: 4
+      parallel_backend: balanced_dask
+environment:
+  desc: null
+  value:
+    collision_system: soft
+    map_name:
+      grid_search:
+      - pico_s00_od20_na32
+      - pico_s01_od20_na32
+      - pico_s02_od20_na32
+      - pico_s03_od20_na32
+      - pico_s04_od20_na32
+      - pico_s05_od20_na32
+      - pico_s06_od20_na32
+      - pico_s07_od20_na32
+      - pico_s08_od20_na32
+      - pico_s09_od20_na32
+      - pico_s10_od10_na32
+      - pico_s11_od10_na32
+      - pico_s12_od10_na32
+      - pico_s13_od10_na32
+      - pico_s14_od10_na32
+      - pico_s15_od10_na32
+      - pico_s16_od10_na32
+      - pico_s17_od10_na32
+      - pico_s18_od10_na32
+      - pico_s19_od10_na32
+      - pico_s20_od30_na32
+      - pico_s21_od30_na32
+      - pico_s22_od30_na32
+      - pico_s23_od30_na32
+      - pico_s24_od30_na32
+      - pico_s25_od30_na32
+      - pico_s26_od30_na32
+      - pico_s27_od30_na32
+      - pico_s28_od30_na32
+      - pico_s29_od30_na32
+      - pico_s30_od0_na32
+      - pico_s31_od0_na32
+      - pico_s32_od0_na32
+      - pico_s33_od0_na32
+      - pico_s34_od0_na32
+      - pico_s35_od0_na32
+      - pico_s36_od0_na32
+      - pico_s37_od0_na32
+      - pico_s38_od0_na32
+      - pico_s39_od0_na32
+    max_episode_steps: 512
+    name: Pogema-v0
+    num_agents:
+      grid_search:
+      - 8
+      - 16
+      - 32
+      - 64
+    observation_type: POMAPF
+    on_target: restart
+    seed:
+      grid_search:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+results_views:
+  desc: null
+  value:
+    01-random:
+      font_size: 8
+      height: 2.5
+      hue_order:
+      - Follower
+      - FollowerLite
+      legend_font_size: 8
+      line_width: 2
+      name: Random $20 \times 20$
+      ticks:
+      - 8
+      - 16
+      - 32
+      - 64
+      type: plot
+      use_log_scale_x: true
+      width: 2.5
+      x: num_agents
+      y: avg_throughput
+    TabularView:
+      drop_keys:
+      - seed
+      - map_name
+      print_results: true
+      type: tabular

@@ -115,6 +115,7 @@ void Follower::init(const Config& cfg_, py::array_t<double> array, std::vector<s
     }
 }
 
+// Pybind11 的核心宏，用于将 C++ 类或函数绑定到 Python 模块中，使其可以在 Python 中调用
 PYBIND11_MODULE(follower, m) {
 py::class_<Follower>(m, "Follower")
 .def(py::init<>())

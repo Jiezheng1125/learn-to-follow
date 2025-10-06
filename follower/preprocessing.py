@@ -27,6 +27,10 @@ def wrap_preprocessors(env, config: PreprocessorConfig, auto_reset=False):
 
 class FollowerWrapper(ObservationWrapper):
 
+    """
+    基于内置规划器ResettablePlanner为每个智能体生成通往全局目标的“子目标路径”，并叠加到局部珊格
+    若上一时刻子目标达成，则给予内在奖励
+    """
     def __init__(self, env, config: PreprocessorConfig):
         super().__init__(env)
         self._cfg: PreprocessorConfig = config
@@ -42,10 +46,15 @@ class FollowerWrapper(ObservationWrapper):
         return obs_radius - dx, obs_radius - dy
 
     def observation(self, observations):
+        """
+        处理环境返回的观察值，为每个智能体生成路径规划信息，并更新观察值
+        
+        """
+
         # Update cost penalties based on the current observations, independently for each agent.
         self.re_plan.update(observations)
 
-        # Retrieve the shortest path to the global target for each agent.
+        # 获取每个智能体到目标点的最短路径。
         paths = self.re_plan.get_path()
 
         new_goals = []  # Initialize a list to store new goals for each agent.
@@ -60,14 +69,14 @@ class FollowerWrapper(ObservationWrapper):
                 new_goals.append(obs['target_xy'])  # Use the target position as a new goal.
                 path = []
             else:
-                # Check if the agent reached their subgoal from its previous step
+                # 检查智能体是否达成了上一时刻的子目标
                 subgoal_achieved = self.prev_goals and obs['xy'] == self.prev_goals[k]
-                # Assign an intrinsic reward if conditions are met, otherwise set it to 0.
+                # 如果达成，给予内在奖励（intrinsic_target_reward）；否则奖励为 0.0。
                 intrinsic_rewards.append(self._cfg.intrinsic_target_reward if subgoal_achieved else 0.0)
-                # Select a new target point.
+                # 更新新的子目标为路径中的下一个点
                 new_goals.append(path[1])
 
-            # Set obstacle values to -1.0 in the observation.
+            # 将观察值中的障碍物值设置为负数，用于后续的处理
             obs['obstacles'][obs['obstacles'] > 0] *= -1
 
             # Adding path to the observation, setting path values to +1.0.
@@ -108,6 +117,10 @@ class FollowerWrapper(ObservationWrapper):
 
 
 class CutObservationWrapper(ObservationWrapper):
+
+    """
+    把局部观测裁减到network_input_radius=r的正方形窗口，降低输入尺寸与噪声
+    """
     def __init__(self, env, target_observation_radius):
         super().__init__(env)
         self._target_obs_radius = target_observation_radius
@@ -133,7 +146,9 @@ class CutObservationWrapper(ObservationWrapper):
 
 
 class ConcatPositionalFeatures(ObservationWrapper):
-
+    """
+    把多种二维特征图（障碍物，其他智能体、路径等）按通道维拼成一个单个向量供卷积网络处理    
+    """
     def __init__(self, env):
         super().__init__(env)
         self.to_concat = []

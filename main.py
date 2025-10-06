@@ -38,6 +38,10 @@ def parse_args_to_items(argv_):
     return keys, values
 
 
+
+"""
+把自定义环境和编码器接入Sample Factory(一个分布式R框架)
+"""
 def main():
     experiment = Experiment()
     experiment = create_sf_config(experiment).__dict__

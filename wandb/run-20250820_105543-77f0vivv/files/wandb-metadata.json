@@ -1,0 +1,43 @@
+{
+    "os": "Linux-6.14.0-27-generic-x86_64-with-glibc2.39",
+    "python": "3.10.18",
+    "heartbeatAt": "2025-08-20T02:56:12.704203",
+    "startedAt": "2025-08-20T02:55:43.564633",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_count": 1,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "--actor_critic_share_weights=True",
+        "--batch_size=16384",
+        "--env=PogemaMazes-v0",
+        "--exploration_loss_coeff=0.023",
+        "--extra_fc_layers=1",
+        "--gamma=0.9756",
+        "--hidden_size=512",
+        "--intrinsic_target_reward=0.01",
+        "--learning_rate=0.00022",
+        "--lr_schedule=constant",
+        "--network_input_radius=5",
+        "--num_filters=64",
+        "--num_res_blocks=8",
+        "--num_workers=8",
+        "--optimizer=adam",
+        "--ppo_clip_ratio=0.2",
+        "--train_for_env_steps=1000000000",
+        "--use_rnn=True"
+    ],
+    "state": "running",
+    "program": "/home/sentu/code/learn-to-follow/main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "https://github.com/Cognitive-AI-Systems/learn-to-follow.git",
+        "commit": "d02680a42113180bb7cacb2cf367e69447dc98eb"
+    },
+    "email": null,
+    "root": "/home/sentu/code/learn-to-follow",
+    "host": "sentu-System-Product-Name",
+    "username": "sentu",
+    "executable": "/home/sentu/anaconda3/envs/My_test/bin/python3"
+}

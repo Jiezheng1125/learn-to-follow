@@ -26,7 +26,7 @@ def create_sf_config(exp: Experiment):
 
 
 def run(config=None):
-    register_custom_model()
+    register_custom_model()  # 注册自定义的强化学习模型
 
     if config is None:
         import argparse
@@ -73,6 +73,7 @@ def run(config=None):
         wandb.init(project='Learn-to-Follow', config=exp.dict(), save_code=False, sync_tensorboard=True,
                    anonymous="allow", job_type=exp.environment.env, group='train')
 
+    # 训练启动时，注册自定义模型与环境，实例化并运行SF的runner
     flat_config, runner = make_runner(create_sf_config(exp))
     register_msg_handlers(flat_config, runner)
     status = runner.init()
